@@ -34,10 +34,8 @@ gray = "#4b4b4b"
 # Define frames
 entry_frame = tk.LabelFrame(root)
 list_frame = tk.LabelFrame(root)
-# button_frame = tk.LabelFrame(root)
 entry_frame.pack(padx=1, pady=5)
-list_frame.pack(padx=1, pady=5)
-# button_frame.pack(padx=2)
+list_frame.pack(ipady=5)
 
 
 # First row
@@ -63,8 +61,8 @@ isbn_text = StringVar()
 isbn_entry = tk.Entry(entry_frame, textvariable=isbn_text)
 isbn_entry.grid(row=1, column=3)
 
-book_list = tk.Listbox(list_frame, height=6, width=35)
-book_list.grid(row=2, column=0, rowspan=6, columnspan=2)
+book_list = tk.Listbox(list_frame, height=8, width=35)
+book_list.grid(row=2, column=0, rowspan=8, columnspan=2, padx=5)
 
 scrollbar = tk.Scrollbar(list_frame)
 scrollbar.grid(row=2, column=2, rowspan=6)
