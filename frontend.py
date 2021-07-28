@@ -55,7 +55,7 @@ def view_command():
 
 
 def search_command():
-    """Searches the database from a specific input"""
+    """Searches the database for a specific input"""
     book_list.delete(0, END)
     for row in backend.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
         book_list.insert(END, row)
