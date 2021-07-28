@@ -4,7 +4,6 @@ Title, Author
 Year, ISBN
 
 User can:
-
 View all records
 Search an entry
 Add entry
@@ -20,8 +19,8 @@ import backend
 root = tk.Tk()
 root.title("Book Store")
 root.iconbitmap("book.ico")
-root.geometry("350x230")
-root.resizable(0,0)
+root.geometry("350x260")
+root.resizable(0, 0)
 
 # Define colors and fonts
 black = "#280607"
@@ -30,8 +29,8 @@ dark_red = "#a80a0d"
 gray = "#4b4b4b"
 
 
-# Define functions
 
+# Define functions
 def get_selected_row(event):
     """Get the id of the selected row"""
     global selected_tuple
@@ -48,41 +47,49 @@ def get_selected_row(event):
 
 
 def view_command():
+    """Lists all the data in the database"""
     book_list.delete(0, END)
     for row in backend.view():
         book_list.insert(END, row)
 
 
 def search_command():
+    """Searches the database from a specific input"""
     book_list.delete(0, END)
     for row in backend.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
         book_list.insert(END, row)
 
 
 def add_command():
+    """Adds book"""
     backend.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
-    clear_list()
+    book_list.delete(0, END)
     book_list.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
-    # clear_input()
+    clear_input()
+
+
+def update_command():
+    """Updates d specific row in the database"""
+    backend.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    update_listview()
 
 
 def delete_command():
+    """Deletes a specific row from the database"""
     backend.delete(selected_tuple[0])
     update_listview()
 
 
-def clear_list():
-    book_list.delete(0, END)
-
-
 def clear_input():
-    title_text.set("")
-    author_text.set("")
-    year_text.set("")
-    isbn_text.set("")
+    """Clears the input boxes"""
+    title_entry.delete(0, END)
+    author_entry.delete(0, END)
+    year_entry.delete(0, END)
+    isbn_entry.delete(0, END)
 
 
 def update_listview():
+    """Refreshes the listview"""
     book_list.delete(0, END)
     for row in backend.view():
         book_list.insert(END, row)
@@ -90,10 +97,10 @@ def update_listview():
 
 # GUI Layout
 # Define frames
-entry_frame = tk.LabelFrame(root)
-list_frame = tk.LabelFrame(root)
+entry_frame = tk.Frame(root)
+list_frame = tk.Frame(root)
 entry_frame.pack(padx=1, pady=5)
-list_frame.pack(ipady=5)
+list_frame.pack(pady=(10,0), ipady=5)
 
 # Define entry frame
 # First row
@@ -119,31 +126,34 @@ isbn_text = StringVar()
 isbn_entry = tk.Entry(entry_frame, textvariable=isbn_text)
 isbn_entry.grid(row=1, column=3)
 
-# Define display
-book_list = tk.Listbox(list_frame, height=8, width=35)
-book_list.grid(row=2, column=0, rowspan=8, columnspan=2, padx=5)
-
+# List frame layout
+# Define Listbox
+book_list = tk.Listbox(list_frame, height=11, width=35)
+book_list.grid(row=0, column=0, rowspan=11, columnspan=2)
+# Scrollbar
 scrollbar = tk.Scrollbar(list_frame)
-scrollbar.grid(row=2, column=2, rowspan=6, sticky="NS")
+scrollbar.grid(row=0, column=2, rowspan=11, padx=(0,5), sticky="NS")
+# Connect the list box and scrollbar
+book_list.config(yscrollcommand=scrollbar.set)
+scrollbar.config(command=book_list.yview)
 
-book_list.configure(yscrollcommand=scrollbar.set)
-scrollbar.configure(command=book_list.yview)
-
-# Define the binding of the Listbox and the
+"""Define the binding of the Listbox and the selected row which will be used when deleting and updating"""
 book_list.bind("<<ListboxSelect>>", get_selected_row)
 
-# Define buttons
+# Define the buttons
+clear_input_button = tk.Button(list_frame, text="Clear input", width=12, command=clear_input)
+clear_input_button.grid(row=0, column=3)
 view_button = tk.Button(list_frame, text="View all", width=12, command=view_command)
-view_button.grid(row=2, column=3)
+view_button.grid(row=1, column=3)
 search_button = tk.Button(list_frame, text="Search entry", width=12, command=search_command)
-search_button.grid(row=3, column=3)
+search_button.grid(row=2, column=3)
 add_button = tk.Button(list_frame, text="Add entry", width=12, command=add_command)
-add_button.grid(row=4, column=3)
-update_button = tk.Button(list_frame, text="Update", width=12, command=backend.update)
-update_button.grid(row=5, column=3)
-delete_button = tk.Button(list_frame, text="Delete", width=12, command=delete_command)
-delete_button.grid(row=6, column=3)
+add_button.grid(row=3, column=3)
+update_button = tk.Button(list_frame, text="Update selected", width=12, command=update_command)
+update_button.grid(row=4, column=3)
+delete_button = tk.Button(list_frame, text="Delete selected", width=12, command=delete_command)
+delete_button.grid(row=5, column=3)
 close_button = tk.Button(list_frame, text="Close", width=12, command=root.destroy)
-close_button.grid(row=7, column=3)
+close_button.grid(row=6, column=3)
 
 root.mainloop()

@@ -32,7 +32,7 @@ def view():
 def search(title="", author="", year="", isbn=""):
     connection = sqlite3.connect("bookstore.db")
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM books WHERE title=? OR author=? OR year=? OR isbn=? AND (title IS NOT NULL AND author IS NOT NULL AND year IS NOT NULL AND isbn IS NOT NULL)", (title, author, year, isbn))
+    cursor.execute("SELECT * FROM books WHERE title=? OR author=? OR year=? OR isbn=?", (title, author, year, isbn))
     rows = cursor.fetchall()
     connection.close()
     return rows
@@ -55,11 +55,3 @@ def update(id, title, author, year, isbn):
 
 
 connect()
-# insert("Mathematics","John Doe",1993,12345)
-# insert("Science","John Doe",1993,12345)
-# insert("English","John Doe",1993,12345)
-# print(search("","",1993))
-# delete(1)
-# print(view())
-# update(3, "English", "John Smith", 1990, 646646)
-# print(view())
