@@ -13,5 +13,5 @@ Close
 
 ## Screenshot
 <p align="center">
-    <img width="300px" alt="book store preview" src="https://github.com/zarexalvindaria/bookstore/blob/main/img/book-store-preview.gif?raw=true" />
+    <img width="400px" alt="book store preview" src="https://github.com/zarexalvindaria/bookstore/blob/main/img/book-store-preview.gif?raw=true" />
 </p>
