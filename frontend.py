@@ -22,7 +22,6 @@ root.iconbitmap("book.ico")
 root.geometry("360x250")
 root.resizable(0, 0)
 
-
 # Define colors and fonts
 black = "#280607"
 light_red = "#dc1214"
@@ -106,7 +105,7 @@ def update_listview():
 entry_frame = tk.Frame(root)
 list_frame = tk.Frame(root)
 entry_frame.pack(padx=1, pady=5)
-list_frame.pack(pady=(10,0), ipady=5)
+list_frame.pack(pady=(10, 0), ipady=5)
 
 # Define entry frame
 # Label First row
@@ -142,7 +141,7 @@ book_list = tk.Listbox(list_frame, height=11, width=35)
 book_list.grid(row=0, column=0, rowspan=11, columnspan=2)
 # Scrollbar
 scrollbar = tk.Scrollbar(list_frame)
-scrollbar.grid(row=0, column=2, rowspan=11, padx=(0,5), sticky="NS")
+scrollbar.grid(row=0, column=2, rowspan=11, padx=(0, 5), sticky="NS")
 # Connect the list box and scrollbar
 book_list.config(yscrollcommand=scrollbar.set)
 scrollbar.config(command=book_list.yview)
@@ -151,17 +150,21 @@ scrollbar.config(command=book_list.yview)
 book_list.bind("<<ListboxSelect>>", get_selected_row)
 
 # Define the buttons
-clear_input_button = tk.Button(list_frame, text="Clear input", width=14, command=clear_input, bg=button_color, font=button_font)
+clear_input_button = tk.Button(list_frame, text="Clear input", width=14, command=clear_input, bg=button_color,
+                               font=button_font)
 clear_input_button.grid(row=0, column=3)
 view_button = tk.Button(list_frame, text="View all", width=14, command=view_command, bg=button_color, font=button_font)
 view_button.grid(row=1, column=3)
-search_button = tk.Button(list_frame, text="Search entry", width=14, command=search_command, bg=button_color, font=button_font)
+search_button = tk.Button(list_frame, text="Search entry", width=14, command=search_command, bg=button_color,
+                          font=button_font)
 search_button.grid(row=2, column=3)
 add_button = tk.Button(list_frame, text="Add entry", width=14, command=add_command, bg=button_color, font=button_font)
 add_button.grid(row=3, column=3)
-update_button = tk.Button(list_frame, text="Update selected", width=14, command=update_command, bg=button_color, font=button_font)
+update_button = tk.Button(list_frame, text="Update selected", width=14, command=update_command, bg=button_color,
+                          font=button_font)
 update_button.grid(row=4, column=3)
-delete_button = tk.Button(list_frame, text="Delete selected", width=14, command=delete_command, bg=button_color, font=button_font)
+delete_button = tk.Button(list_frame, text="Delete selected", width=14, command=delete_command, bg=button_color,
+                          font=button_font)
 delete_button.grid(row=5, column=3)
 close_button = tk.Button(list_frame, text="Close", width=14, command=root.destroy, bg=button_color, font=button_font)
 close_button.grid(row=6, column=3)
