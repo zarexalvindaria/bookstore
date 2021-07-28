@@ -19,14 +19,17 @@ import backend
 root = tk.Tk()
 root.title("Book Store")
 root.iconbitmap("book.ico")
-root.geometry("350x260")
+root.geometry("360x250")
 root.resizable(0, 0)
+
 
 # Define colors and fonts
 black = "#280607"
 light_red = "#dc1214"
 dark_red = "#a80a0d"
-gray = "#4b4b4b"
+button_color = "#8e9aaf"
+label_font = ("Inter", 11)
+button_font = ("Inter", 9)
 
 
 
@@ -104,9 +107,9 @@ list_frame.pack(pady=(10,0), ipady=5)
 
 # Define entry frame
 # First row
-title_label = tk.Label(entry_frame, text="Title", padx=5)
+title_label = tk.Label(entry_frame, text="Title", padx=5, font=button_font)
 title_label.grid(row=0, column=0)
-author_label = tk.Label(entry_frame, text="Author", padx=5)
+author_label = tk.Label(entry_frame, text="Author", padx=5, font=button_font)
 author_label.grid(row=0, column=2)
 title_text = StringVar()
 title_entry = tk.Entry(entry_frame, textvariable=title_text)
@@ -115,9 +118,9 @@ author_text = StringVar()
 author_entry = tk.Entry(entry_frame, textvariable=author_text)
 author_entry.grid(row=0, column=3)
 # Second row
-year_label = tk.Label(entry_frame, text="Year", padx=5)
+year_label = tk.Label(entry_frame, text="Year", padx=5, font=button_font)
 year_label.grid(row=1, column=0)
-isbn_label = tk.Label(entry_frame, text="ISBN", padx=5)
+isbn_label = tk.Label(entry_frame, text="ISBN", padx=5, font=button_font)
 isbn_label.grid(row=1, column=2)
 year_text = StringVar()
 year_entry = tk.Entry(entry_frame, textvariable=year_text)
@@ -141,19 +144,19 @@ scrollbar.config(command=book_list.yview)
 book_list.bind("<<ListboxSelect>>", get_selected_row)
 
 # Define the buttons
-clear_input_button = tk.Button(list_frame, text="Clear input", width=12, command=clear_input)
+clear_input_button = tk.Button(list_frame, text="Clear input", width=14, command=clear_input, bg=button_color, font=button_font)
 clear_input_button.grid(row=0, column=3)
-view_button = tk.Button(list_frame, text="View all", width=12, command=view_command)
+view_button = tk.Button(list_frame, text="View all", width=14, command=view_command, bg=button_color, font=button_font)
 view_button.grid(row=1, column=3)
-search_button = tk.Button(list_frame, text="Search entry", width=12, command=search_command)
+search_button = tk.Button(list_frame, text="Search entry", width=14, command=search_command, bg=button_color, font=button_font)
 search_button.grid(row=2, column=3)
-add_button = tk.Button(list_frame, text="Add entry", width=12, command=add_command)
+add_button = tk.Button(list_frame, text="Add entry", width=14, command=add_command, bg=button_color, font=button_font)
 add_button.grid(row=3, column=3)
-update_button = tk.Button(list_frame, text="Update selected", width=12, command=update_command)
+update_button = tk.Button(list_frame, text="Update selected", width=14, command=update_command, bg=button_color, font=button_font)
 update_button.grid(row=4, column=3)
-delete_button = tk.Button(list_frame, text="Delete selected", width=12, command=delete_command)
+delete_button = tk.Button(list_frame, text="Delete selected", width=14, command=delete_command, bg=button_color, font=button_font)
 delete_button.grid(row=5, column=3)
-close_button = tk.Button(list_frame, text="Close", width=12, command=root.destroy)
+close_button = tk.Button(list_frame, text="Close", width=14, command=root.destroy, bg=button_color, font=button_font)
 close_button.grid(row=6, column=3)
 
 root.mainloop()
