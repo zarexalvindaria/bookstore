@@ -12,3 +12,6 @@ Delete
 Close
 
 ## Screenshot
+<p align="center">
+    <img width="200px" alt="book store preview" src="https://github.com/zarexalvindaria/bookstore/blob/main/img/book-store-preview.gif?raw=true" />
+</p>
