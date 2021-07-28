@@ -14,8 +14,8 @@ Close
 """
 
 import tkinter as tk
-from tkinter import StringVar, LEFT
-
+from tkinter import StringVar
+import backend
 
 root = tk.Tk()
 root.title("Book Store")
@@ -30,24 +30,20 @@ dark_red = "#a80a0d"
 gray = "#4b4b4b"
 
 
-
-# Define function
-
-
 # GUI Layout
 # Define frames
 entry_frame = tk.LabelFrame(root)
 list_frame = tk.LabelFrame(root)
 # button_frame = tk.LabelFrame(root)
-entry_frame.pack(padx=2)
-list_frame.pack()
+entry_frame.pack(padx=1, pady=5)
+list_frame.pack(padx=1, pady=5)
 # button_frame.pack(padx=2)
 
 
 # First row
-title_label = tk.Label(entry_frame, text="Title", justify=LEFT)
+title_label = tk.Label(entry_frame, text="Title", padx=5)
 title_label.grid(row=0, column=0)
-author_label = tk.Label(entry_frame, text="Author", justify=LEFT)
+author_label = tk.Label(entry_frame, text="Author", padx=5)
 author_label.grid(row=0, column=2)
 title_text = StringVar()
 title_entry = tk.Entry(entry_frame, textvariable=title_text)
@@ -56,9 +52,9 @@ author_text = StringVar()
 author_entry = tk.Entry(entry_frame, textvariable=author_text)
 author_entry.grid(row=0, column=3)
 # Second row
-year_label = tk.Label(entry_frame, text="Year", justify=LEFT)
+year_label = tk.Label(entry_frame, text="Year", padx=5)
 year_label.grid(row=1, column=0)
-isbn_label = tk.Label(entry_frame, text="ISBN", justify=LEFT)
+isbn_label = tk.Label(entry_frame, text="ISBN", padx=5)
 isbn_label.grid(row=1, column=2)
 year_text = StringVar()
 year_entry = tk.Entry(entry_frame, textvariable=year_text)
