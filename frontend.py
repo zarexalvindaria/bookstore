@@ -13,7 +13,7 @@ Close
 """
 
 import tkinter as tk
-from tkinter import StringVar, END
+from tkinter import StringVar, END, messagebox
 import backend
 
 root = tk.Tk()
@@ -27,10 +27,9 @@ root.resizable(0, 0)
 black = "#280607"
 light_red = "#dc1214"
 dark_red = "#a80a0d"
-button_color = "#8e9aaf"
+button_color = "#e5e5e5"
 label_font = ("Inter", 11)
 button_font = ("Inter", 9)
-
 
 
 # Define functions
@@ -65,10 +64,14 @@ def search_command():
 
 def add_command():
     """Adds book"""
-    backend.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
-    book_list.delete(0, END)
-    book_list.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
-    clear_input()
+    if title_text.get() == "" and author_text.get() == "" and year_text.get() == "" and isbn_text.get() == "":
+        warning = messagebox.showinfo("Empty inputs", "Your inputs are empty!")
+        return warning
+    else:
+        backend.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+        book_list.delete(0, END)
+        book_list.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
+        clear_input()
 
 
 def update_command():
@@ -106,25 +109,29 @@ entry_frame.pack(padx=1, pady=5)
 list_frame.pack(pady=(10,0), ipady=5)
 
 # Define entry frame
-# First row
+# Label First row
+# Title
 title_label = tk.Label(entry_frame, text="Title", padx=5, font=button_font)
 title_label.grid(row=0, column=0)
-author_label = tk.Label(entry_frame, text="Author", padx=5, font=button_font)
-author_label.grid(row=0, column=2)
 title_text = StringVar()
 title_entry = tk.Entry(entry_frame, textvariable=title_text)
 title_entry.grid(row=0, column=1)
+# Author
+author_label = tk.Label(entry_frame, text="Author", padx=5, font=button_font)
+author_label.grid(row=0, column=2)
 author_text = StringVar()
 author_entry = tk.Entry(entry_frame, textvariable=author_text)
 author_entry.grid(row=0, column=3)
 # Second row
+# Year
 year_label = tk.Label(entry_frame, text="Year", padx=5, font=button_font)
 year_label.grid(row=1, column=0)
-isbn_label = tk.Label(entry_frame, text="ISBN", padx=5, font=button_font)
-isbn_label.grid(row=1, column=2)
 year_text = StringVar()
 year_entry = tk.Entry(entry_frame, textvariable=year_text)
 year_entry.grid(row=1, column=1)
+# ISBN
+isbn_label = tk.Label(entry_frame, text="ISBN", padx=5, font=button_font)
+isbn_label.grid(row=1, column=2)
 isbn_text = StringVar()
 isbn_entry = tk.Entry(entry_frame, textvariable=isbn_text)
 isbn_entry.grid(row=1, column=3)
@@ -159,4 +166,5 @@ delete_button.grid(row=5, column=3)
 close_button = tk.Button(list_frame, text="Close", width=14, command=root.destroy, bg=button_color, font=button_font)
 close_button.grid(row=6, column=3)
 
+# Run the main window
 root.mainloop()
