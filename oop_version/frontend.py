@@ -71,7 +71,7 @@ def add_command():
     else:
         database.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
         book_list.delete(0, END)
-        book_list.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
+        book_list.insert(END, (selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
         clear_input()
 
 
