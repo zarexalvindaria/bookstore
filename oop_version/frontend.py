@@ -14,7 +14,9 @@ Close
 
 import tkinter as tk
 from tkinter import StringVar, END, messagebox
-import backend
+from backend import Database
+
+database = Database("bookstore.db")
 
 root = tk.Tk()
 root.title("Book Store")
@@ -50,14 +52,14 @@ def get_selected_row(event):
 def view_command():
     """Lists all the data in the database"""
     book_list.delete(0, END)
-    for row in backend.view():
+    for row in database.view():
         book_list.insert(END, row)
 
 
 def search_command():
     """Searches the database for a specific input"""
     book_list.delete(0, END)
-    for row in backend.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
+    for row in database.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
         book_list.insert(END, row)
 
 
@@ -67,7 +69,7 @@ def add_command():
         warning = messagebox.showinfo("Empty inputs", "Your inputs are empty!")
         return warning
     else:
-        backend.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+        database.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
         book_list.delete(0, END)
         book_list.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
         clear_input()
@@ -75,13 +77,13 @@ def add_command():
 
 def update_command():
     """Updates d specific row in the database"""
-    backend.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    database.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     update_listview()
 
 
 def delete_command():
     """Deletes a specific row from the database"""
-    backend.delete(selected_tuple[0])
+    database.delete(selected_tuple[0])
     update_listview()
 
 
@@ -96,7 +98,7 @@ def clear_input():
 def update_listview():
     """Refreshes the listview"""
     book_list.delete(0, END)
-    for row in backend.view():
+    for row in database.view():
         book_list.insert(END, row)
 
 
