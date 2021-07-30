@@ -21,8 +21,8 @@ class Database:
         rows = self.cursor.fetchall()
         return rows
 
-    def search(self, title, author, year='0', isbn='0'):
-        self.cursor.execute("SELECT * FROM books WHERE title=%s OR author=%s OR year=IN(%s) OR isbn=IN(%s)",
+    def search(self, title, author, year, isbn):
+        self.cursor.execute("SELECT * FROM books WHERE title=%s OR author=%s OR year=%s OR isbn=%s",
                             (title, author, year, isbn))
         rows = self.cursor.fetchall()
         return rows

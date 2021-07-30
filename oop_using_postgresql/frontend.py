@@ -68,14 +68,17 @@ def search_command():
     """Searches the database for a specific input"""
     book_list.delete(0, END)
     if year_text.get() == '' and isbn_text.get() == '':
-        year_text.set(0)
-        isbn_text.set(0)
+        for row in database.search(title_text.get(), author_text.get(), 0, 0):
+            book_list.insert(END, row)
     elif year_text.get() == '':
-        year_text.set(0)
+        for row in database.search(title_text.get(), author_text.get(), 0, isbn_text.get()):
+            book_list.insert(END, row)
     elif isbn_text.get() == '':
-        isbn_text.set(0)
-    for row in database.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
-        book_list.insert(END, row)
+        for row in database.search(title_text.get(), author_text.get(), year_text.get(), 0):
+            book_list.insert(END, row)
+    else:
+        for row in database.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
+            book_list.insert(END, row)
 
 
 def add_command():
@@ -92,7 +95,7 @@ def add_command():
 
 def update_command():
     """Updates d specific row in the database"""
-    database.update(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    database.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     update_listview()
 
 
