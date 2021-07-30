@@ -102,6 +102,7 @@ def update_command():
 def delete_command():
     """Deletes a specific row from the database"""
     database.delete(selected_tuple[0])
+    clear_input()
     update_listview()
 
 
