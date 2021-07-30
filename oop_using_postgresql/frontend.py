@@ -13,7 +13,7 @@ Close
 """
 
 import tkinter as tk
-from tkinter import StringVar, END, messagebox
+from tkinter import StringVar, END, messagebox, DISABLED
 from backend import Database
 
 database = Database("bookstore.db")
@@ -40,13 +40,21 @@ def get_selected_row(event):
     index = book_list.curselection()[0]
     selected_tuple = book_list.get(index)
     title_entry.delete(0, END)
-    title_entry.insert(END, selected_tuple[1])
     author_entry.delete(0, END)
-    author_entry.insert(END, selected_tuple[2])
     year_entry.delete(0, END)
-    year_entry.insert(END, selected_tuple[3])
     isbn_entry.delete(0, END)
-    isbn_entry.insert(END, selected_tuple[4])
+
+    # Check the selected row's first value in the tuple to insert the correct value to the entry field
+    if isinstance(selected_tuple[0], int):
+        title_entry.insert(END, selected_tuple[1])
+        author_entry.insert(END, selected_tuple[2])
+        year_entry.insert(END, selected_tuple[3])
+        isbn_entry.insert(END, selected_tuple[4])
+    else:
+        title_entry.insert(END, selected_tuple[0])
+        author_entry.insert(END, selected_tuple[1])
+        year_entry.insert(END, selected_tuple[2])
+        isbn_entry.insert(END, selected_tuple[3])
 
 
 def view_command():
@@ -71,13 +79,14 @@ def add_command():
     else:
         database.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
         book_list.delete(0, END)
-        book_list.insert(END, (selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
+        book_list.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
         clear_input()
+        get_selected_row(DISABLED)
 
 
 def update_command():
     """Updates d specific row in the database"""
-    database.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    database.update(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     update_listview()
 
 
