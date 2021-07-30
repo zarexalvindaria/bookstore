@@ -67,6 +67,13 @@ def view_command():
 def search_command():
     """Searches the database for a specific input"""
     book_list.delete(0, END)
+    if year_text.get() == '' and isbn_text.get() == '':
+        year_text.set(0)
+        isbn_text.set(0)
+    elif year_text.get() == '':
+        year_text.set(0)
+    elif isbn_text.get() == '':
+        isbn_text.set(0)
     for row in database.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
         book_list.insert(END, row)
 
@@ -81,7 +88,6 @@ def add_command():
         book_list.delete(0, END)
         book_list.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
         clear_input()
-        get_selected_row(DISABLED)
 
 
 def update_command():
