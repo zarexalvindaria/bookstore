@@ -22,8 +22,8 @@ class Database:
         return rows
 
     def search(self, title, author, year, isbn):
-        self.cursor.execute("SELECT * FROM books WHERE title=%s OR author=%s OR year=%s OR isbn=%s",
-                            (title, author, year, isbn))
+        SQL = "SELECT * FROM books WHERE title LIKE %(title_wildcard)s OR author LIKE %(author_wildcard)s OR year LIKE %(year_wildcard) ESCAPE '='"
+        self.cursor.execute(SQL, dict(title_wildcard='%'+title+'%', author_wildcard='%'+author+'%', year_wildcard='%'+year+'%'))
         rows = self.cursor.fetchall()
         return rows
 
