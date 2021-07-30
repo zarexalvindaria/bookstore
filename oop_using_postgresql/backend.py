@@ -13,28 +13,43 @@ class Database:
         self.connection.commit()
 
     def insert(self, title, author, year, isbn):
-        self.cursor.execute("INSERT INTO books VALUES (DEFAULT, %s,%s,%s,%s);", (title, author, year, isbn))
-        self.connection.commit()
+        try:
+            self.cursor.execute("INSERT INTO books VALUES (DEFAULT, %s,%s,%s,%s);", (title, author, year, isbn))
+            self.connection.commit()
+        except psycopg2.Error as e:
+            pass
 
     def view(self):
-        self.cursor.execute("SELECT * FROM books")
-        rows = self.cursor.fetchall()
-        return rows
+        try:
+            self.cursor.execute("SELECT * FROM books")
+            rows = self.cursor.fetchall()
+            return rows
+        except psycopg2.Error as e:
+            pass
 
     def search(self, title, author, year, isbn):
-        SQL = "SELECT * FROM books WHERE title LIKE %(title_wildcard)s OR author LIKE %(author_wildcard)s OR year LIKE %(year_wildcard) ESCAPE '='"
-        self.cursor.execute(SQL, dict(title_wildcard='%'+title+'%', author_wildcard='%'+author+'%', year_wildcard='%'+year+'%'))
-        rows = self.cursor.fetchall()
-        return rows
+        try:
+            SQL = "SELECT * FROM books WHERE title=%s OR author=%s OR year=%s OR isbn=%s"
+            self.cursor.execute(SQL, (title, author, year, isbn))
+            rows = self.cursor.fetchall()
+            return rows
+        except psycopg2.Error as e:
+            pass
 
     def delete(self, id):
-        self.cursor.execute("DELETE FROM books WHERE id=%s", [id])
-        self.connection.commit()
+        try:
+            self.cursor.execute("DELETE FROM books WHERE id=%s", [id])
+            self.connection.commit()
+        except psycopg2.Error as e:
+            pass
 
     def update(self, id, title, author, year, isbn):
-        self.cursor.execute("UPDATE books SET title=%s, author=%s, year=%s, isbn=%s WHERE id=%s",
-                            (title, author, year, isbn, id))
-        self.connection.commit()
+        try:
+            self.cursor.execute("UPDATE books SET title=%s, author=%s, year=%s, isbn=%s WHERE id=%s",
+                                (title, author, year, isbn, id))
+            self.connection.commit()
+        except psycopg2.Error as e:
+            pass
 
     def __del__(self):
         self.connection.close()
