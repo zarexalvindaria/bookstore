@@ -13,7 +13,7 @@ Close
 """
 
 import tkinter as tk
-from tkinter import StringVar, END, messagebox, DISABLED
+from tkinter import StringVar, END, messagebox, BOTH
 from backend import Database
 
 database = Database("bookstore.db")
@@ -125,7 +125,7 @@ def update_listview():
 # Define frames
 entry_frame = tk.Frame(root)
 list_frame = tk.Frame(root)
-entry_frame.pack(padx=1, pady=5)
+entry_frame.pack(padx=5, pady=5, fill=BOTH, expand=True)
 list_frame.pack(pady=(10, 0), ipady=5)
 
 # Define entry frame
